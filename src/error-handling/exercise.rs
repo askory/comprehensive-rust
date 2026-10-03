@@ -76,7 +76,7 @@ fn eval(e: Expression) -> Result<i64, DivideByZeroError> {
                 Operation::Mul => left * right,
                 Operation::Div => {
                     if right == 0 {
-                        return Err(DivideByZeroError);
+                        Err(DivideByZeroError)
                     } else {
                         left / right
                     }
