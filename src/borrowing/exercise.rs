@@ -33,7 +33,7 @@ impl Wizard {
     // ANCHOR_END: setup
 
     fn add_spell(&mut self, spell: Spell) {
-        self.spells.push(spell);
+        if spell.uses > 0 { self.spells.push(spell) };
     }
 
     fn cast_spell(&mut self, name: &str) {
@@ -95,6 +95,14 @@ mod tests {
         let spell = Spell { name: String::from("Fireball"), cost: 5, uses: 3 };
         wizard.add_spell(spell);
         assert_eq!(wizard.spells.len(), 1);
+    }
+    
+    #[test]
+    fn test_cast_add_spell_no_uses() {
+        let mut wizard = Wizard::new(10);
+        let spell = Spell { name: String::from("Fireball"), cost: 5, uses: 0 };
+        wizard.add_spell(spell);
+        assert_eq!(wizard.spells.len(), 0);
     }
 
     #[test]
